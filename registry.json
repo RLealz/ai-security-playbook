@@ -1,0 +1,795 @@
+{
+  "version": "1.0.0",
+  "name": "ai-security-playbook",
+  "description": "Vault-first AI Security Meta-Router, 7 Multi-Skill Workflow Combos, and Quarantine-Auditing Upstream Registry covering AppSec, AI/LLM Security, Authorized Pentesting, Cloud/K8s, Web3 Audits, OSINT, and Binary RE/Forensics.",
+  "localSkills": [
+    {
+      "id": "security-router",
+      "path": "skills/security-router",
+      "tier": "defensive",
+      "description": "Master Security Architect, Authorization Gate, and Router diagnosing AppSec, AI/LLM, Pentest, Cloud, Web3, OSINT, and Forensics tasks into the 7 Combos."
+    },
+    {
+      "id": "combo-appsec-code-audit",
+      "path": "skills/combo-appsec-code-audit",
+      "tier": "defensive",
+      "description": "Combo 1 Orchestrator: Full-stack AppSec, API, Auth, Supabase RLS, SAST, and codebase security review."
+    },
+    {
+      "id": "combo-ai-agent-llm-defense",
+      "path": "skills/combo-ai-agent-llm-defense",
+      "tier": "defensive",
+      "description": "Combo 2 Orchestrator: AI/LLM guardrails, SKILL.md & MCP quarantine audits, terminal defense, and adversarial evaluation."
+    },
+    {
+      "id": "combo-authorized-pentest-bounty",
+      "path": "skills/combo-authorized-pentest-bounty",
+      "tier": "defensive",
+      "description": "Combo 3 Orchestrator: Scope-gated Vault-First authorized penetration testing, bug bounty methodology, and oracle-backed PoC validation."
+    },
+    {
+      "id": "combo-cloud-k8s-hardening",
+      "path": "skills/combo-cloud-k8s-hardening",
+      "tier": "defensive",
+      "description": "Combo 4 Orchestrator: Cloud, container, Kubernetes, IAM, WAF, and Sigma/Wazuh/eBPF detection hardening."
+    },
+    {
+      "id": "combo-web3-smart-contract-audit",
+      "path": "skills/combo-web3-smart-contract-audit",
+      "tier": "defensive",
+      "description": "Combo 5 Orchestrator: Smart contract & DeFi security audit combining Trail of Bits skills, Slither, Echidna, Foundry invariants, and Certora."
+    },
+    {
+      "id": "combo-osint-attack-surface",
+      "path": "skills/combo-osint-attack-surface",
+      "tier": "defensive",
+      "description": "Combo 6 Orchestrator: Passive attack-surface mapping, OSINT corroboration, and evidence-first threat intelligence."
+    },
+    {
+      "id": "combo-binary-re-forensics",
+      "path": "skills/combo-binary-re-forensics",
+      "tier": "defensive",
+      "description": "Combo 7 Orchestrator: Isolated binary reverse engineering, malware/container forensics, and STRIDE/Attack-Tree security bluebooks."
+    }
+  ],
+  "combos": {
+    "appsec-code-audit": {
+      "name": "Full-Stack AppSec & Codebase Security Audit",
+      "localSkill": "combo-appsec-code-audit",
+      "upstreamSkills": [
+        "cloudflare-security-audit",
+        "anthropic-defending-code",
+        "vercel-deepsec",
+        "google-mantis",
+        "ghostsecurity-skills",
+        "vibe-shield",
+        "project-codeguard"
+      ]
+    },
+    "ai-agent-llm-defense": {
+      "name": "AI, LLM & Agentic Supply-Chain Defense",
+      "localSkill": "combo-ai-agent-llm-defense",
+      "upstreamSkills": [
+        "vibe-shield",
+        "agentshield",
+        "tirith",
+        "clawsec",
+        "secureclaw",
+        "openclaw-skills-security",
+        "ai-infra-guard"
+      ]
+    },
+    "authorized-pentest-bounty": {
+      "name": "Authorized Pentest, Bug Bounty & Red-Team Pipeline (Vault-First)",
+      "localSkill": "combo-authorized-pentest-bounty",
+      "upstreamSkills": [
+        "claude-bughunter",
+        "claude-red",
+        "pentest-agents",
+        "cyber-monster",
+        "harness-kit",
+        "raptor",
+        "cybermes"
+      ]
+    },
+    "cloud-k8s-hardening": {
+      "name": "Cloud, Container, Kubernetes & Purple-Team Hardening",
+      "localSkill": "combo-cloud-k8s-hardening",
+      "upstreamSkills": [
+        "project-codeguard",
+        "anthropic-cybersecurity-skills"
+      ]
+    },
+    "web3-smart-contract-audit": {
+      "name": "Web3 & Smart Contract Security Audit",
+      "localSkill": "combo-web3-smart-contract-audit",
+      "upstreamSkills": [
+        "trailofbits-skills"
+      ]
+    },
+    "osint-attack-surface": {
+      "name": "Authorized OSINT, Attack-Surface & Threat Intel",
+      "localSkill": "combo-osint-attack-surface",
+      "upstreamSkills": [
+        "claude-osint",
+        "ex-ussr-kinship-research"
+      ]
+    },
+    "binary-re-forensics": {
+      "name": "Binary Reverse Engineering, Malware Forensics & Threat-Model Bluebook",
+      "localSkill": "combo-binary-re-forensics",
+      "upstreamSkills": [
+        "reverse-skill",
+        "raptor"
+      ]
+    }
+  },
+  "upstreamSkills": [
+    {
+      "id": "cloudflare-security-audit",
+      "repo": "cloudflare/security-audit-skill",
+      "subPath": "skills/security-audit",
+      "tier": "defensive",
+      "category": "AppSec & Code Audit",
+      "license": "MIT",
+      "description": "Cloudflare's multi-phase coding-agent security audit skill with independently verified, machine-readable findings."
+    },
+    {
+      "id": "anthropic-defending-code",
+      "repo": "anthropics/defending-code-reference-harness",
+      "subPath": ".claude/skills",
+      "tier": "defensive",
+      "category": "AppSec & Code Audit",
+      "license": "Custom",
+      "description": "Anthropic reference harness skills for threat modeling, DnR scanning, triage, and security patching."
+    },
+    {
+      "id": "trailofbits-skills",
+      "repo": "trailofbits/skills",
+      "subPath": "plugins",
+      "tier": "defensive",
+      "category": "AppSec & Web3 Security",
+      "license": "CC-BY-SA-4.0",
+      "description": "Trail of Bits plugin skills for vulnerability detection, audit context building, and blockchain security reviews."
+    },
+    {
+      "id": "vercel-deepsec",
+      "repo": "vercel-labs/deepsec",
+      "subPath": "packages/deepsec",
+      "tier": "defensive",
+      "category": "AppSec & Code Audit",
+      "license": "Apache-2.0",
+      "description": "Vercel Labs coding-agent security harness for finding and verifying codebase vulnerabilities."
+    },
+    {
+      "id": "google-mantis",
+      "repo": "google/mantis",
+      "subPath": "skills",
+      "tier": "defensive",
+      "category": "AppSec & Code Audit",
+      "license": "Apache-2.0",
+      "description": "Google's modular, stack-agnostic toolkit enabling coding agents to find, reproduce, and patch security bugs."
+    },
+    {
+      "id": "ghostsecurity-skills",
+      "repo": "ghostsecurity/skills",
+      "subPath": "plugins",
+      "tier": "defensive",
+      "category": "AppSec & Code Audit",
+      "license": "Apache-2.0",
+      "description": "Ghost Security's AppSec plugins for repo-context mapping, proxy inspection, and vulnerability reporting."
+    },
+    {
+      "id": "agentshield",
+      "repo": "affaan-m/agentshield",
+      "subPath": ".claude/skills/agentshield",
+      "tier": "defensive",
+      "category": "AI & Agent Defense",
+      "license": "MIT",
+      "description": "Security auditor for AI coding-agent configurations, permissions, hooks, MCP servers, and secret hygiene."
+    },
+    {
+      "id": "vibe-shield",
+      "repo": "avivgerz-hue/vibe-shield",
+      "subPath": ".claude/skills/vibe-shield",
+      "tier": "defensive",
+      "category": "AppSec & AI Defense",
+      "license": "MIT",
+      "description": "92-rule static SAST scanner, secret detector, Supabase RLS auditor & SKILL.md prompt-injection guard."
+    },
+    {
+      "id": "project-codeguard",
+      "repo": "cosai-oasis/project-codeguard",
+      "subPath": "skills/codeguard",
+      "tier": "defensive",
+      "category": "Secure-by-Default & Cloud",
+      "license": "Custom",
+      "description": "CoSAI / OASIS model-agnostic framework embedding secure-by-default engineering controls into agent workflows."
+    },
+    {
+      "id": "tirith",
+      "repo": "sheeki03/tirith",
+      "subPath": "",
+      "tier": "defensive",
+      "category": "AI & Terminal Defense",
+      "license": "AGPL-3.0",
+      "description": "Terminal security guardrail intercepting homograph URLs, pipe-to-shell commands, ANSI injection, and obfuscated payloads."
+    },
+    {
+      "id": "clawsec",
+      "repo": "prompt-security/clawsec",
+      "subPath": "skills",
+      "tier": "defensive",
+      "category": "AI & Agent Defense",
+      "license": "AGPL-3.0",
+      "description": "Complete security skill suite for OpenClaw, Hermes, PicoClaw, and NanoClaw agents covering integrity and feed checks."
+    },
+    {
+      "id": "secureclaw",
+      "repo": "adversa-ai/secureclaw",
+      "subPath": "secureclaw",
+      "tier": "defensive",
+      "category": "AI & Agent Defense",
+      "license": "Unknown",
+      "description": "OWASP-aligned AI agent security skill and plugin hardening configurations and runtime behavior."
+    },
+    {
+      "id": "openclaw-skills-security",
+      "repo": "UseAI-pro/openclaw-skills-security",
+      "subPath": "skills",
+      "tier": "defensive",
+      "category": "AI & Agent Defense",
+      "license": "MIT",
+      "description": "Curated defensive agent skills for config hardening, credential scanning, dependency auditing, and injection detection."
+    },
+    {
+      "id": "ai-infra-guard",
+      "repo": "Tencent/AI-Infra-Guard",
+      "subPath": "agent-scan/agent_scan/prompt/skills",
+      "tier": "defensive",
+      "category": "AI & Agent Defense",
+      "license": "Apache-2.0",
+      "description": "Tencent AI Red-Teaming & defense prompts for supply-chain, authorization-bypass, and agent/MCP security scanning."
+    },
+    {
+      "id": "reverse-skill",
+      "repo": "zhaoxuya520/reverse-skill",
+      "subPath": "",
+      "tier": "vault",
+      "category": "Binary RE & Security Router",
+      "license": "MIT",
+      "description": "Reverse engineering, authorized penetration testing, and CTF/security research skill router pack."
+    },
+    {
+      "id": "anthropic-cybersecurity-skills",
+      "repo": "mukul975/Anthropic-Cybersecurity-Skills",
+      "subPath": "skills",
+      "tier": "vault",
+      "category": "Enterprise Security & Blue Team",
+      "license": "Apache-2.0",
+      "description": "817+ structured cybersecurity skills mapped across MITRE ATT&CK, NIST CSF 2.0, and MITRE ATLAS."
+    },
+    {
+      "id": "claude-bughunter",
+      "repo": "elementalsouls/Claude-BugHunter",
+      "subPath": "skills",
+      "tier": "vault",
+      "category": "Bug Bounty & External Red Team",
+      "license": "MIT",
+      "description": "82 modular bug-hunting skills, slash commands, and disclosed-report methodology patterns."
+    },
+    {
+      "id": "claude-red",
+      "repo": "SnailSploit/Claude-Red",
+      "subPath": "Skills",
+      "tier": "vault",
+      "category": "Authorized Red Team",
+      "license": "MIT",
+      "description": "Curated 79-skill library covering web, API, Active Directory, cloud, and offensive AI security testing."
+    },
+    {
+      "id": "claude-osint",
+      "repo": "elementalsouls/Claude-OSINT",
+      "subPath": "skills",
+      "tier": "vault",
+      "category": "OSINT & Recon",
+      "license": "MIT",
+      "description": "10 OSINT skills covering passive recon, email/domain security, continuous exposure monitoring, and SaaS footprinting."
+    },
+    {
+      "id": "raptor",
+      "repo": "gadievron/raptor",
+      "subPath": ".claude/skills",
+      "tier": "vault",
+      "category": "RE, Fuzzing & Pentest Harness",
+      "license": "Custom",
+      "description": "AI security research agent skills for crash analysis, function tracing, codebase auditing, and tool orchestration."
+    },
+    {
+      "id": "pentest-agents",
+      "repo": "H-mmer/pentest-agents",
+      "subPath": ".claude/skills",
+      "tier": "vault",
+      "category": "Bug Bounty & Multi-Agent Pentest",
+      "license": "Unknown",
+      "description": "Large bug-bounty agent skill bundle for autonomous recon, chaining, and authorized engagement workflows."
+    },
+    {
+      "id": "cybermes",
+      "repo": "Zyrexnn/Cybermes",
+      "subPath": "knowledge",
+      "tier": "vault",
+      "category": "Hermes Security Knowledge Pack",
+      "license": "Apache-2.0",
+      "description": "Hermes-powered offensive security and bug-bounty knowledge base (bundled skills isolated for vault loading)."
+    },
+    {
+      "id": "cyber-monster",
+      "repo": "W4L33Dx/Cyber-Monster",
+      "subPath": "",
+      "tier": "vault",
+      "category": "Red & Blue Team Mega-Pack",
+      "license": "Unknown",
+      "description": "786 red-team, blue-team, forensics, detection, and application security skills unified behind a single router."
+    },
+    {
+      "id": "harness-kit",
+      "repo": "ZephrFish/harness-kit",
+      "subPath": "skills",
+      "tier": "vault",
+      "category": "5-Phase Bug-Hunting Harness",
+      "license": "Unknown",
+      "description": "Structured 5-phase bug-hunting skill harness (01-recon, 02-hunt, 03-validate, 04-trace, 05-report)."
+    },
+    {
+      "id": "ex-ussr-kinship-research",
+      "repo": "DenisSergeevitch/ex-ussr-kinship-research",
+      "subPath": "",
+      "tier": "vault",
+      "category": "Evidence-First Archival OSINT",
+      "license": "MIT",
+      "description": "Evidence-first historical and archival OSINT methodology skill for AI coding agents."
+    }
+  ],
+  "agentFrameworks": [
+    {
+      "id": "strix",
+      "repo": "usestrix/strix",
+      "category": "Autonomous AppSec / Pentest",
+      "license": "Apache-2.0",
+      "description": "Open-source AI penetration testing tool to discover and patch application vulnerabilities."
+    },
+    {
+      "id": "shannon",
+      "repo": "KeygraphHQ/shannon",
+      "category": "Whitebox-to-PoC Pentest",
+      "license": "AGPL-3.0",
+      "description": "Source-aware web/API AI pentester that identifies attack vectors and builds working PoCs."
+    },
+    {
+      "id": "pentagi",
+      "repo": "vxcontrol/pentagi",
+      "category": "Autonomous Multi-Agent Pentest",
+      "license": "MIT",
+      "description": "Fully autonomous containerized multi-agent system executing structured penetration tests."
+    },
+    {
+      "id": "pentestgpt",
+      "repo": "GreyDGL/PentestGPT",
+      "category": "Interactive Pentest Agent",
+      "license": "MIT",
+      "description": "Automated penetration testing agentic framework powered by Large Language Models."
+    },
+    {
+      "id": "cai",
+      "repo": "aliasrobotics/cai",
+      "category": "Cybersecurity AI Framework",
+      "license": "Custom",
+      "description": "Modular Cybersecurity AI (CAI) framework for building defensive and red-team security agents."
+    },
+    {
+      "id": "failsafe-artex",
+      "repo": "failsafe-security/artex",
+      "category": "Hardened Source-Built ARTEX",
+      "license": "AGPL-3.0",
+      "description": "Audited v0.3.15 source-built, localhost-bound FailSafe distribution of ARTEX."
+    },
+    {
+      "id": "baarai-artex",
+      "repo": "BaaRai/ARTEX",
+      "category": "Active English ARTEX Fork",
+      "license": "AGPL-3.0",
+      "description": "Active English ARTEX continuation (patched to build locally from source instead of legacy Docker Hub tags).",
+      "advisory": "artex-tomicdd-backdoor"
+    },
+    {
+      "id": "redamon",
+      "repo": "samugit83/redamon",
+      "category": "Attack-Surface Graph Pentester",
+      "license": "MIT",
+      "description": "Self-hosted AI penetration testing platform mapping attack surfaces into a queryable graph."
+    },
+    {
+      "id": "decepticon",
+      "repo": "BitterSecurity/Decepticon",
+      "category": "Autonomous Red-Team Agent",
+      "license": "Apache-2.0",
+      "description": "Autonomous adversary emulation and hacking agent designed for authorized red teaming."
+    },
+    {
+      "id": "pentest-swarm-ai",
+      "repo": "Armur-Ai/Pentest-Swarm-AI",
+      "category": "Swarm Pentesting",
+      "license": "AGPL-3.0",
+      "description": "Multi-agent penetration testing swarm splitting recon, classification, validation, and reporting."
+    },
+    {
+      "id": "open-kritt",
+      "repo": "Kritt-ai/open-kritt",
+      "category": "AI Vulnerability Research",
+      "license": "AGPL-3.0",
+      "description": "Self-hosted AI vulnerability research tool orchestrating agents to find and validate source issues."
+    },
+    {
+      "id": "pentest-ai",
+      "repo": "0xSteph/pentest-ai",
+      "category": "Oracle-Verified Pentester",
+      "license": "MIT",
+      "description": "Open-source AI pentester using machine oracles to re-run findings and prove exploit validity."
+    },
+    {
+      "id": "pentest-ai-agents",
+      "repo": "0xSteph/pentest-ai-agents",
+      "category": "Claude Code Pentest Subagents",
+      "license": "MIT",
+      "description": "Specialized Claude Code subagents for authorized penetration testing planning and validation."
+    },
+    {
+      "id": "openhack",
+      "repo": "hadriansecurity/OpenHack",
+      "category": "Whitebox Review Workspace",
+      "license": "MIT",
+      "description": "Lightweight file-based workspace for source-guided whitebox security code reviews."
+    },
+    {
+      "id": "openhunterai",
+      "repo": "LumosLab-Innovation/OpenHunterAI",
+      "category": "Local-First Red-Team Engine",
+      "license": "Custom",
+      "description": "Local-first AI red-team engine for web, API, and LLM application testing with evidence backing."
+    },
+    {
+      "id": "evilsocket-audit",
+      "repo": "evilsocket/audit",
+      "category": "8-Stage Source Auditor",
+      "license": "MIT",
+      "description": "8-stage autonomous source-code vulnerability discovery agent by @evilsocket."
+    },
+    {
+      "id": "cynative",
+      "repo": "cynative/cynative",
+      "category": "Multi-Cloud Security Agents",
+      "license": "Apache-2.0",
+      "description": "Open-source AI agent framework for AWS, Azure, GCP, and Kubernetes detection and hardening."
+    },
+    {
+      "id": "cyberstrike",
+      "repo": "CyberStrikeus/CyberStrike",
+      "category": "Offensive Security Harness",
+      "license": "AGPL-3.0",
+      "description": "Open-source AI-powered offensive security harness for automated engagement workflows."
+    }
+  ],
+  "mcpServers": [
+    {
+      "id": "hexstrike-ai",
+      "repo": "0x4m4/hexstrike-ai",
+      "domain": "Offensive / Recon MCP",
+      "license": "MIT",
+      "description": "MCP server exposing automated reconnaissance, scanning, and web testing toolchains to AI agents."
+    },
+    {
+      "id": "semgrep-mcp",
+      "repo": "semgrep/mcp",
+      "domain": "AppSec / SAST MCP",
+      "license": "MIT",
+      "description": "Official Semgrep MCP server enabling deterministic static code scanning inside coding agents."
+    },
+    {
+      "id": "openosint-mcp",
+      "repo": "OpenOSINT/OpenOSINT",
+      "domain": "Passive OSINT MCP",
+      "license": "MIT",
+      "description": "Open-source passive OSINT engine exposing 21 checks over CLI, web UI, and MCP."
+    },
+    {
+      "id": "darknet-mcp-server",
+      "repo": "badchars/darknet-mcp-server",
+      "domain": "Darkweb Threat Intel MCP",
+      "license": "MIT",
+      "description": "66-tool MCP server for breach intelligence, ransomware tracking, Tor .onion monitoring, and CTI."
+    },
+    {
+      "id": "rea-mcp",
+      "repo": "morluto/rea",
+      "domain": "Reverse Engineering MCP",
+      "license": "MIT",
+      "description": "Reverse Engineer Anything (REA) MCP for native binaries, managed code, Electron/JS bundles, and mobile analysis."
+    },
+    {
+      "id": "pentestagent-mcp",
+      "repo": "0xSojalSec/PentestAgent",
+      "domain": "Security Toolbox MCP",
+      "license": "MIT",
+      "description": "AI agent + MCP toolbox integrating Nmap, HTTP probing, and security assessment tools."
+    },
+    {
+      "id": "vulnerator-ai-mcp",
+      "repo": "irraz/vulnerator-ai",
+      "domain": "OODA ATT&CK MCP",
+      "license": "MIT",
+      "description": "Autonomous OODA-loop security testing agent routing Playwright and Kali tools over MCP."
+    },
+    {
+      "id": "pentestgpt-mcp",
+      "repo": "yuhano/PentestGPT-MCP",
+      "domain": "LLM + MCP Pentesting",
+      "license": "Unknown",
+      "description": "Automated penetration testing agent pairing LLM reasoning with MCP tool execution."
+    },
+    {
+      "id": "world-intel-mcp",
+      "repo": "marc-shade/world-intel-mcp",
+      "domain": "Global OSINT MCP",
+      "license": "MIT",
+      "description": "160-tool MCP server synthesizing global threat, infrastructure, and market intelligence feeds."
+    },
+    {
+      "id": "damn-vulnerable-mcp-server",
+      "repo": "harishsg993010/damn-vulnerable-MCP-server",
+      "domain": "MCP Security Lab",
+      "license": "Unknown",
+      "description": "Deliberately vulnerable MCP playground for reproducing and mitigating MCP tool-poisoning flaws."
+    }
+  ],
+  "securityResources": [
+    {
+      "name": "Promptfoo",
+      "url": "https://promptfoo.dev",
+      "category": "AI & LLM Security",
+      "description": "Prompt, RAG, and AI agent red-teaming & evaluation harness."
+    },
+    {
+      "name": "NVIDIA Garak",
+      "url": "https://github.com/NVIDIA/garak",
+      "category": "AI & LLM Security",
+      "description": "Open-source LLM vulnerability and jailbreak probing framework."
+    },
+    {
+      "name": "DeepTeam",
+      "url": "https://github.com/confident-ai/deepteam",
+      "category": "AI & LLM Security",
+      "description": "Multi-turn red-teaming suite for LLMs and agentic systems."
+    },
+    {
+      "name": "Cisco Skill Scanner",
+      "url": "https://github.com/cisco-ai-defense/skill-scanner",
+      "category": "AI & LLM Security",
+      "description": "Dedicated static and behavioral analyzer for Agent Skills (SKILL.md)."
+    },
+    {
+      "name": "OpenGuardrails",
+      "url": "https://github.com/openguardrails/openguardrails",
+      "category": "AI & LLM Security",
+      "description": "Open-source agent firewall, sandbox, and runtime safety rules."
+    },
+    {
+      "name": "Adversarial Robustness Toolbox (ART)",
+      "url": "https://github.com/Trusted-AI/adversarial-robustness-toolbox",
+      "category": "AI & LLM Security",
+      "description": "Python library for ML evasion, poisoning, extraction, and adversarial defenses."
+    },
+    {
+      "name": "Agentic Radar",
+      "url": "https://github.com/splx-ai/agentic-radar",
+      "category": "AI & LLM Security",
+      "description": "Workflow and dependency security scanner for multi-agent graphs."
+    },
+    {
+      "name": "ModelScan",
+      "url": "https://github.com/protectai/modelscan",
+      "category": "AI & LLM Security",
+      "description": "Protection against unsafe model serialization payloads."
+    },
+    {
+      "name": "AIGoat",
+      "url": "https://github.com/AISecurityConsortium/AIGoat",
+      "category": "AI & LLM Security",
+      "description": "Open-source playground for hands-on LLM and RAG security testing."
+    },
+    {
+      "name": "AgentDojo",
+      "url": "https://github.com/ethz-spylab/agentdojo",
+      "category": "AI & LLM Security",
+      "description": "ETH Zurich dynamic benchmark for evaluating agent prompt-injection defenses."
+    },
+    {
+      "name": "CyberGym",
+      "url": "https://github.com/sunblaze-ucb/cybergym",
+      "category": "AI & LLM Security",
+      "description": "UC Berkeley benchmark suite evaluating cybersecurity task capability."
+    },
+    {
+      "name": "Arcanum Sec-Context",
+      "url": "https://github.com/Arcanum-Sec/sec-context",
+      "category": "AI & LLM Security",
+      "description": "AI code security anti-patterns distilled to prevent vulnerable LLM output."
+    },
+    {
+      "name": "Gray Swan Arena",
+      "url": "https://app.grayswan.ai/arena",
+      "category": "AI & LLM Security",
+      "description": "Interactive LLM and agent red-teaming evaluation arena."
+    },
+    {
+      "name": "Adversa AI",
+      "url": "https://adversa.ai/",
+      "category": "AI & LLM Security",
+      "description": "AI security benchmarks and Top-10 agentic threat taxonomies."
+    },
+    {
+      "name": "Trivy",
+      "url": "https://github.com/aquasecurity/trivy",
+      "category": "AppSec, Cloud & Detection",
+      "description": "Container, Kubernetes, IaC, secret, and SBOM vulnerability scanner."
+    },
+    {
+      "name": "TruffleHog",
+      "url": "https://github.com/trufflesecurity/trufflehog",
+      "category": "AppSec, Cloud & Detection",
+      "description": "High-signal secret scanner with live credential verification."
+    },
+    {
+      "name": "Wazuh",
+      "url": "https://github.com/wazuh/wazuh",
+      "category": "AppSec, Cloud & Detection",
+      "description": "Unified open-source XDR and SIEM platform for endpoints and cloud workloads."
+    },
+    {
+      "name": "SigmaHQ Rules",
+      "url": "https://github.com/SigmaHQ/sigma",
+      "category": "AppSec, Cloud & Detection",
+      "description": "Generic signature format and community rules for SIEM threat detection."
+    },
+    {
+      "name": "Atomic Red Team",
+      "url": "https://github.com/redcanaryco/atomic-red-team",
+      "category": "AppSec, Cloud & Detection",
+      "description": "Portable detection tests mapped to MITRE ATT&CK techniques."
+    },
+    {
+      "name": "owLSM eBPF Sigma Engine",
+      "url": "https://github.com/Cybereason-Public/owLSM",
+      "category": "AppSec, Cloud & Detection",
+      "description": "Kernel-level eBPF Sigma rule enforcement engine by Cybereason."
+    },
+    {
+      "name": "OWASP WSTG & Cheat Sheet Series",
+      "url": "https://github.com/OWASP/wstg",
+      "category": "AppSec, Cloud & Detection",
+      "description": "Authoritative OWASP web security testing methodology and remediation cheat sheets."
+    },
+    {
+      "name": "HexBrain",
+      "url": "https://hexbrainai.com/",
+      "category": "AppSec, Cloud & Detection",
+      "description": "Visual map exploring patterns across 15,000+ disclosed HackerOne bounty reports."
+    },
+    {
+      "name": "DefectDojo",
+      "url": "https://defectdojo.com",
+      "category": "AppSec, Cloud & Detection",
+      "description": "Open-source vulnerability management and AppSec posture management (ASPM)."
+    },
+    {
+      "name": "PortSwigger Top 10 Web Hacking Techniques",
+      "url": "https://portswigger.net/research/top-10-web-hacking-techniques-of-2025",
+      "category": "AppSec, Cloud & Detection",
+      "description": "Annual research digest of novel web application exploitation techniques."
+    },
+    {
+      "name": "Slither & Echidna",
+      "url": "https://github.com/crytic/slither",
+      "category": "Web3 & Smart Contract Security",
+      "description": "Trail of Bits static analyzer and stateful fuzzer for Solidity/Vyper contracts."
+    },
+    {
+      "name": "DeFiHackLabs",
+      "url": "https://github.com/SunWeb3Sec/DeFiHackLabs",
+      "category": "Web3 & Smart Contract Security",
+      "description": "Foundry reproductions and root-cause analyses of historical DeFi incidents."
+    },
+    {
+      "name": "Cyfrin Solodit & Audit Checklist",
+      "url": "https://solodit.cyfrin.io",
+      "category": "Web3 & Smart Contract Security",
+      "description": "Searchable database of public smart contract audit findings and review checklists."
+    },
+    {
+      "name": "AI Auditor Primers",
+      "url": "https://github.com/devdacian/ai-auditor-primers",
+      "category": "Web3 & Smart Contract Security",
+      "description": "Specialist smart contract audit methodology primers tailored for AI auditors."
+    },
+    {
+      "name": "Certora Prover",
+      "url": "https://certora.com/signup",
+      "category": "Web3 & Smart Contract Security",
+      "description": "Formal verification engine checking mathematical protocol invariants."
+    },
+    {
+      "name": "BBOT & Subfinder",
+      "url": "https://github.com/blacklanternsecurity/bbot",
+      "category": "OSINT & Forensics",
+      "description": "Recursive external attack-surface and passive subdomain enumeration tools."
+    },
+    {
+      "name": "Web-Check",
+      "url": "https://github.com/lissy93/web-check",
+      "category": "OSINT & Forensics",
+      "description": "All-in-one OSINT and HTTP/DNS/TLS inspection dashboard for websites."
+    },
+    {
+      "name": "Velociraptor & TheHive",
+      "url": "https://github.com/Velocidex/velociraptor",
+      "category": "OSINT & Forensics",
+      "description": "Endpoint DFIR collection engine and open-source incident response case platform."
+    },
+    {
+      "name": "Forensic OSINT Guide",
+      "url": "https://forensicosint.com/osint-guide",
+      "category": "OSINT & Forensics",
+      "description": "Evidence-preservation guides and web investigation methodologies."
+    },
+    {
+      "name": "OpenSourceMalware",
+      "url": "https://opensourcemalware.com",
+      "category": "OSINT & Forensics",
+      "description": "Community threat intelligence tracking malicious open-source packages."
+    },
+    {
+      "name": "Privacy Guides",
+      "url": "https://github.com/privacyguides/privacyguides.org",
+      "category": "OSINT & Forensics",
+      "description": "Community-audited operational security and privacy recommendations."
+    },
+    {
+      "name": "ARTEX Forensics Report (Blackfish Security)",
+      "url": "https://github.com/darkfibr/artex-forensics",
+      "category": "Supply-Chain Threat Intel",
+      "description": "Static disassembly forensics proving backdoored legacy Docker image and removed upstream scope guard."
+    },
+    {
+      "name": "Prompt-Injection Mitigations & Transparency",
+      "url": "https://github.com/Valhall-ai/prompt-injection-mitigations",
+      "category": "Read-Only Threat Intel",
+      "description": "Defensive mitigation taxonomy paired with read-only adversarial research references."
+    },
+    {
+      "name": "OnionScan & Darknet Threat Monitoring",
+      "url": "https://github.com/s-rah/onionscan",
+      "category": "Read-Only Threat Intel",
+      "description": "Investigative darkweb service auditing and breach intelligence monitoring references."
+    }
+  ],
+  "supplyChainAdvisories": [
+    {
+      "id": "artex-tomicdd-backdoor",
+      "severity": "CRITICAL",
+      "affectedArtifact": "tomicdd/artex (legacy Docker Hub image) & deleted Autumn-27/ARTEX upstream",
+      "evidenceRepo": "darkfibr/artex-forensics",
+      "summary": "Static binary disassembly proved the legacy prebuilt Docker Hub image injected an unauthenticated command-execution backdoor inside server.verifyCaptcha and upstream removed engagement-scope enforcement (guard/guard.go).",
+      "recommendation": "Never pull third-party prebuilt ARTEX containers. Use the audited source-built, localhost-bound failsafe-security/artex distribution or inspect the patched BaaRai/ARTEX source build inside an isolated authorized lab."
+    }
+  ]
+}
