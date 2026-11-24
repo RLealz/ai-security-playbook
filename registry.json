@@ -209,7 +209,7 @@
     {
       "id": "tirith",
       "repo": "sheeki03/tirith",
-      "subPath": "",
+      "subPath": "SKILL.md",
       "tier": "defensive",
       "category": "AI & Terminal Defense",
       "license": "AGPL-3.0",

@@ -25,6 +25,7 @@ param(
     [ValidateSet("all", "defensive", "vault")]
     [string]$Tier = "all",
     [switch]$ForceActive,
+    [switch]$AllowDocWarnings,
     [switch]$AllowVaultWarnings,
     [switch]$SkipAudit
 )
@@ -168,9 +169,15 @@ function Test-SkillSecurity([string]$ScanDir, [string]$SkillId, [string]$SkillTi
     }
 
     if ($SkillTier -eq "defensive") {
-        if ($hasFail) {
-            Write-Warning "  [BLOCKED] Defensive skill '$SkillId' failed static security audit. Inspect before trusting."
-            return $false
+        if ($hasFail -or $hasWarn) {
+            if ($AllowDocWarnings) {
+                Write-Host "  [WARN] Defensive skill '$SkillId' has non-Trojan doc findings (0 hard-blocks); proceeding via -AllowDocWarnings." -ForegroundColor Yellow
+                return $true
+            }
+            if ($hasFail) {
+                Write-Warning "  [BLOCKED] Defensive skill '$SkillId' failed static security audit. Inspect the files above; re-run with -AllowDocWarnings only if verified benign docs."
+                return $false
+            }
         }
         Write-Host "  [PASS] '$SkillId' passed static security audit (0 FAIL)." -ForegroundColor Green
         return $true
@@ -233,13 +240,25 @@ function Install-UpstreamSkill([string]$SkillId, [string]$DestRoot, [string]$Vau
         $prev = $ErrorActionPreference
         $ErrorActionPreference = "Continue"
         if ($UpEntry.subPath -and $UpEntry.subPath -ne "") {
-            & git clone --depth 1 --filter=blob:none --sparse -c core.hooksPath=NUL $RepoUrl $TempRoot 2>&1 | Out-Null
-            if ($LASTEXITCODE -eq 0) {
-                Push-Location $TempRoot
-                & git sparse-checkout set $UpEntry.subPath 2>&1 | Out-Null
-                Pop-Location
+            $subClean = $UpEntry.subPath.TrimStart('/')
+            if ($subClean -match '\.[A-Za-z0-9]+$') {
+                & git clone --depth 1 --filter=blob:none --no-checkout -c core.hooksPath=NUL $RepoUrl $TempRoot 2>&1 | Out-Null
+                if ($LASTEXITCODE -eq 0) {
+                    Push-Location $TempRoot
+                    & git sparse-checkout init --no-cone 2>&1 | Out-Null
+                    & git sparse-checkout set "/$subClean" 2>&1 | Out-Null
+                    & git checkout 2>&1 | Out-Null
+                    Pop-Location
+                }
+            } else {
+                & git clone --depth 1 --filter=blob:none --sparse -c core.hooksPath=NUL $RepoUrl $TempRoot 2>&1 | Out-Null
+                if ($LASTEXITCODE -eq 0) {
+                    Push-Location $TempRoot
+                    & git sparse-checkout set $UpEntry.subPath 2>&1 | Out-Null
+                    Pop-Location
+                }
             }
-            $SourcePayload = Join-Path $TempRoot ($UpEntry.subPath -replace '/', '\')
+            $SourcePayload = Join-Path $TempRoot ($subClean -replace '/', '\')
         } else {
             & git clone --depth 1 --filter=blob:none -c core.hooksPath=NUL $RepoUrl $TempRoot 2>&1 | Out-Null
             $SourcePayload = $TempRoot
@@ -255,6 +274,13 @@ function Install-UpstreamSkill([string]$SkillId, [string]$DestRoot, [string]$Vau
         if (-not (Test-Path $SourcePayload)) {
             Write-Warning "  [WARN] Subpath '$($UpEntry.subPath)' not found in $($UpEntry.repo); falling back to repo root."
             $SourcePayload = $TempRoot
+        }
+
+        if (Test-Path $SourcePayload -PathType Leaf) {
+            $LeafStage = Join-Path $TempRoot "_leaf_stage"
+            New-Item -ItemType Directory -Force -Path $LeafStage | Out-Null
+            Copy-Item -Path $SourcePayload -Destination $LeafStage -Force
+            $SourcePayload = $LeafStage
         }
 
         $GitFolder = Join-Path $TempRoot ".git"
@@ -354,5 +380,5 @@ Write-Host "Usage:" -ForegroundColor Yellow
 Write-Host "  .\install.ps1 -List                                                          # List Combos, Defensive & Vault Skills"
 Write-Host "  .\install.ps1 -Router [-Target claude|antigravity|...]                       # Install built-in Router + 7 Combo skills"
 Write-Host "  .\install.ps1 -Combo <combo-name> [-Tier all|defensive|vault] [-Target ...]  # Install Combo with vault-first routing"
-Write-Host "  .\install.ps1 -Skill <skill-id> [-VaultDir <path>] [-AllowVaultWarnings]     # Fetch, audit, and install/vault one skill"
+Write-Host "  .\install.ps1 -Skill <skill-id> [-VaultDir <path>] [-AllowDocWarnings] [-AllowVaultWarnings]     # Fetch, audit, and install/vault one skill"
 Write-Host "  .\install.ps1 -All [-Tier defensive|all] [-Target ...]                       # Install all skills matching tier filter"

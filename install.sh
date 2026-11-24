@@ -29,6 +29,7 @@ TARGET="claude"
 VAULT_DIR=""
 TIER="all"
 FORCE_ACTIVE=0
+ALLOW_DOC_WARNINGS=0
 ALLOW_VAULT_WARNINGS=0
 SKIP_AUDIT=0
 
@@ -70,6 +71,10 @@ while [[ $# -gt 0 ]]; do
       ;;
     --force-active)
       FORCE_ACTIVE=1
+      shift
+      ;;
+    --allow-doc-warnings)
+      ALLOW_DOC_WARNINGS=1
       shift
       ;;
     --allow-vault-warnings)
@@ -132,9 +137,9 @@ audit_skill_dir() {
   scan_json="$("$PY_BIN" "$SCANNER_PY" --path "$scan_dir" --json)"
 
   local decision
-  decision="$(SCAN_JSON="$scan_json" "$PY_BIN" - "$skill_id" "$skill_tier" "$ALLOW_VAULT_WARNINGS" <<'PYEOF'
+  decision="$(SCAN_JSON="$scan_json" "$PY_BIN" - "$skill_id" "$skill_tier" "$ALLOW_VAULT_WARNINGS" "$ALLOW_DOC_WARNINGS" <<'PYEOF'
 import json, os, sys
-skill_id, skill_tier, allow_warn = sys.argv[1], sys.argv[2], sys.argv[3] == "1"
+skill_id, skill_tier, allow_warn, allow_doc = sys.argv[1], sys.argv[2], sys.argv[3] == "1", sys.argv[4] == "1"
 results = json.loads(os.environ.get("SCAN_JSON", "[]"))
 has_fail = any(r.get("status") == "FAIL" for r in results)
 has_warn = any(r.get("status") == "WARN" for r in results)
@@ -145,7 +150,15 @@ for f in findings[:20]:
 if hard_block:
     print("HARD_BLOCK")
 elif skill_tier == "defensive":
-    print("BLOCK" if has_fail else "PASS")
+    if has_fail or has_warn:
+        if allow_doc:
+            print("ALLOW_DOC_WARN")
+        elif has_fail:
+            print("BLOCK")
+        else:
+            print("PASS")
+    else:
+        print("PASS")
 else:
     if has_fail or has_warn:
         print("ALLOW_VAULT_WARN" if allow_warn else "PAUSE_VAULT")
@@ -157,6 +170,10 @@ PYEOF
   case "$decision" in
     PASS)
       echo "  [PASS] '$skill_id' passed static security audit."
+      return 0
+      ;;
+    ALLOW_DOC_WARN)
+      echo "  [WARN] Defensive skill '$skill_id' has non-Trojan doc findings (0 hard-blocks); proceeding via --allow-doc-warnings."
       return 0
       ;;
     ALLOW_VAULT_WARN)
@@ -230,9 +247,15 @@ install_upstream_skill() {
   echo "[FETCH] Cloning '$skill_id' from https://github.com/$repo (Tier: $skill_tier, License: $license)..."
 
   if [[ -n "$subpath" ]]; then
-    git clone --depth 1 --filter=blob:none --sparse -c core.hooksPath=/dev/null "https://github.com/$repo.git" "$temp_dir" >/dev/null 2>&1 || { rm -rf "$temp_dir"; return 1; }
-    (cd "$temp_dir" && git sparse-checkout set "$subpath" >/dev/null 2>&1)
-    local payload_dir="$temp_dir/$subpath"
+    local sub_clean="${subpath#/}"
+    if [[ "$sub_clean" =~ \.[A-Za-z0-9]+$ ]]; then
+      git clone --depth 1 --filter=blob:none --no-checkout -c core.hooksPath=/dev/null "https://github.com/$repo.git" "$temp_dir" >/dev/null 2>&1 || { rm -rf "$temp_dir"; return 1; }
+      (cd "$temp_dir" && git sparse-checkout init --no-cone >/dev/null 2>&1 && git sparse-checkout set "/$sub_clean" >/dev/null 2>&1 && git checkout >/dev/null 2>&1)
+    else
+      git clone --depth 1 --filter=blob:none --sparse -c core.hooksPath=/dev/null "https://github.com/$repo.git" "$temp_dir" >/dev/null 2>&1 || { rm -rf "$temp_dir"; return 1; }
+      (cd "$temp_dir" && git sparse-checkout set "$subpath" >/dev/null 2>&1)
+    fi
+    local payload_dir="$temp_dir/$sub_clean"
   else
     git clone --depth 1 --filter=blob:none -c core.hooksPath=/dev/null "https://github.com/$repo.git" "$temp_dir" >/dev/null 2>&1 || { rm -rf "$temp_dir"; return 1; }
     local payload_dir="$temp_dir"
@@ -240,8 +263,14 @@ install_upstream_skill() {
 
   rm -rf "$temp_dir/.git"
 
-  if [[ ! -d "$payload_dir" ]]; then
+  if [[ ! -e "$payload_dir" ]]; then
     payload_dir="$temp_dir"
+  fi
+
+  if [[ -f "$payload_dir" ]]; then
+    mkdir -p "$temp_dir/_leaf_stage"
+    cp "$payload_dir" "$temp_dir/_leaf_stage/"
+    payload_dir="$temp_dir/_leaf_stage"
   fi
 
   if audit_skill_dir "$payload_dir" "$skill_id" "$skill_tier"; then
@@ -331,7 +360,7 @@ for u in r['upstreamSkills']:
     echo "  ./install.sh --list"
     echo "  ./install.sh --router [--target claude|global-claude|cursor|antigravity|codex|/custom/path]"
     echo "  ./install.sh --combo <combo-name> [--tier all|defensive|vault] [--target ...]"
-    echo "  ./install.sh --skill <skill-id> [--vault-dir /path/to/vault] [--allow-vault-warnings]"
+    echo "  ./install.sh --skill <skill-id> [--vault-dir /path/to/vault] [--allow-doc-warnings] [--allow-vault-warnings]"
     echo "  ./install.sh --all [--tier defensive|all] [--target ...]"
     ;;
 esac

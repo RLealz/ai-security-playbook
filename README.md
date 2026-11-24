@@ -100,6 +100,9 @@ chmod +x install.sh
 .\install.ps1 -Skill vibe-shield -Target antigravity
 .\install.ps1 -Skill cloudflare-security-audit -Target antigravity
 
+# Security-scanner skill whose own CLI usage examples illustrate blocked syntax (inspect findings first, then pass -AllowDocWarnings)
+.\install.ps1 -Skill tirith -Target antigravity -AllowDocWarnings
+
 # Vault pack -> isolated security vault folder (inspect doc findings, then approve with -AllowVaultWarnings)
 .\install.ps1 -Skill harness-kit -Target antigravity -VaultDir "$HOME\.gemini\config\skills-vault-security"
 .\install.ps1 -Skill cyber-monster -Target antigravity -VaultDir "$HOME\.gemini\config\skills-vault-security" -AllowVaultWarnings
@@ -108,6 +111,7 @@ chmod +x install.sh
 ```bash
 # Bash equivalent
 ./install.sh --skill vibe-shield --target antigravity
+./install.sh --skill tirith --target antigravity --allow-doc-warnings
 ./install.sh --skill harness-kit --target antigravity --vault-dir "$HOME/.gemini/config/skills-vault-security"
 ```
 
